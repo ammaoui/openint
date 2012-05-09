@@ -124,7 +124,12 @@
         <provider android:name="org.openintents.safe.backup.MyBackupPro"  
             android:authorities="org.openintents.safe.backup.MyBackupPro"
         />
-        
+		<provider android:name="PasswdProvider"
+			android:authorities="org.openintents.safe.passwd"
+			android:exported="false">
+			<grant-uri-permission android:pathPattern=".*"/>
+		</provider>
+
 		<!-- Activities from OI Distribution Library -->
         <activity android:name="org.openintents.distribution.EulaActivity" />
         <activity android:name="org.openintents.distribution.NewVersionActivity" />

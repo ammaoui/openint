@@ -1,4 +1,4 @@
-/* $Id$
+/* $Id: IntentHandler.java 3974 2012-01-02 01:25:37Z rmceoin@gmail.com $
  * 
  * Copyright 2007-2008 Steven Osborn
  *
@@ -50,7 +50,7 @@ import android.widget.Toast;
  */
 public class IntentHandler extends Activity {
 
-	private static final boolean debug = false;
+	private static final boolean debug = true;
 	private static String TAG = "IntentHandler";
 	
 	private static final int REQUEST_CODE_ASK_PASSWORD = 1;
@@ -78,6 +78,18 @@ public class IntentHandler extends Activity {
 		mServiceIntent = null;
 		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+		String toPackage="org.openintents.safecptest";
+		
+		String AUTHORITY = "org.openintents.safe.passwd";
+
+        Uri.Builder builder = new Uri.Builder ();
+        builder.scheme ("content");
+        builder.authority (AUTHORITY);
+        builder.path ("/passwords");
+        Uri mUri = builder.build ();
+        getApplicationContext().grantUriPermission(toPackage, mUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		if (debug) Log.d(TAG, "granted acesss to "+toPackage);
+		
 		if (Passwords.Initialize(this)==false) {
 			finish();
 		}
